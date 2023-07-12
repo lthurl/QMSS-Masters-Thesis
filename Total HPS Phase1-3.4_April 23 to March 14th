@@ -1,0 +1,42 @@
+Add in constant packages
+
+```{r}
+library(plyr)												
+library(dplyr)												
+library(readr)
+library(tidyverse)
+library(stringr)
+library(reshape2)
+library(grid)
+library(rvest)
+library(stringr)
+library(ggplot2)
+library(ggthemes)
+library(plotly)
+library(grid)
+library(ggrepel)
+library(png)
+library(DT)
+library(dplyr)
+```
+
+```{r}
+# MasterCVSfiles was a folder with all excel files from puf01 to puf 43. The following code is to put it all together. Due to the size of the files,
+# your computer may crash... multiple times.
+library(data.table)
+setwd("/Users/lgptp/Documents/QMSSFA21/HPS_Datasets/Mastercsvfiles")
+files <- list.files(patter = ".csv")
+temp <- lapply(files, fread, sep=",")
+data <- rbindlist ( temp , fill = TRUE)
+write.csv(data, file = "TotalHouseholdPulseSurvey.csv", row.names = FALSE)
+```
+
+```{r}
+# This code is to get the variables that I want and exclude the ones I don't. 
+## Note: There are a few variables that change between Phases. Thus, I had to reselect variables depending on the Phase. However, this should give you an idea of the variables I wanted to look at.
+THPS <- subset(read.csv ( "TotalHouseholdPulseSurvey.csv" , header = TRUE), select = c(TBIRTH_YEAR, EGENDER, RHISPANIC, RRACE, EEDUC, GENID_DESCRIBE, SEXUAL_ORIENTATION, MS, WRKLOSS, EXPCTLOSS, ANYWORK, KINDWORK, RSNNOWRK, UNEMPPAY, EIP, PRIFOODSUF, CURFOODSUF, CHILDFOOD, FREEFOOD, TSPNDFOOD, TSPNDPRPD, FOODCONF, HLTHSTATUS, ANXIOUS, WORRY, INTEREST, DOWN, HLTHINS1, HLTHINS2, HLTHINS3, HLTHINS4, HLTHINS5, HLTHINS6, HLTHINS7, HLTHINS8, DELAY, NOTGET, TENURE, MORTLMTH, MORTCONF, INTRNTAVAIL, INCOME, EST_ST, EST_MSA, SCRAM, WEEK )) 
+```
+
+```{r}
+describe(THPS)
+```
