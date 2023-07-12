@@ -1,0 +1,35 @@
+# Start with defining variables
+```{r}
+#P1_HPS_MAIN <- subset(read.csv ( "/Users/lgptp/Documents/QMSSFA21/HPS_Datasets/Mastercsvfiles/Phase1/Phase1_HPS.csv" , header = TRUE), select = c(TBIRTH_YEAR, EGENDER, RHISPANIC, RRACE, EEDUC, MS, WRKLOSS, RSNNOWRK, UNEMPPAY, EIP, CURFOODSUF, FOODCONF, HLTHSTATUS, ANXIOUS, WORRY, INTEREST, DOWN, DELAY, NOTGET, MORTLMTH, MORTCONF, INCOME, EST_ST, EST_MSA, SCRAM, WEEK )) 
+```
+
+```{r}
+#making the data somewhat pretty
+# Set to NA where the value is a -88 (Missing)
+#P1_HPS_MAIN[P1_HPS_MAIN == "-88"] <- NA 
+# Set to NA where the value is a -99 (Question seen but category not reported)
+#P1_HPS_MAIN[P1_HPS_MAIN == "-99"] <- NA 
+
+#Noting which variables are categorized as which
+#Demographic: TBIRTH_YEAR, EGENDER, RHISPANIC, RRACE, EEDUC, MS, INCOME
+#Financial Security: WRKLOSS, RSNNOWRK, UNEMPPAY, EIP, MORTLMTH, MORTCONF
+#Food Security: CURFOODSUF, FOODCONF
+#Health Concerns: HLTHSTATUS, DELAY, NOTGET
+#Anxiety: ANXIOUS, WORRY,
+#Depression: INTEREST, DOWN,
+#Geographic: EST_ST, EST_MSA
+#Other: SCRAM, WEEK
+
+#merge double variables of anxiety and depression
+    #anxiety
+#P1_HPS_MAIN$ANXIETY <- paste(P1_HPS_MAIN$ANXIOUS, P1_HPS_MAIN$WORRY)
+    #depression
+#P1_HPS_MAIN$DEPRESS <- paste(P1_HPS_MAIN$INTEREST, P1_HPS_MAIN$DOWN)
+```
+
+```{r}
+library(psych)
+
+desP1 <- describe(P1_HPS_MAIN)
+desP1
+```
